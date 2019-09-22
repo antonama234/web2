@@ -63,8 +63,9 @@ public class UserService {
 
     public boolean authUser(User user) {
         boolean auth = false;
-        if (dataBase.containsKey(user.getId())) {
-            auth = authMap.containsKey(user.getId());
+        if (dataBase.containsKey(user.getId()) && !authMap.containsKey(user.getId())) {
+            authMap.put(user.getId(), user);
+            auth = true;
         }
         return auth;
     }
