@@ -11,16 +11,19 @@ import java.io.Writer;
 import java.util.Map;
 
 public class PageGenerator {
-    private static PageGenerator pageGenerator = new PageGenerator();
+    private static PageGenerator pageGenerator;
     private static final String HTML_DIR = "templates";
     private final Configuration cfg;
 
-    private PageGenerator() {
-        cfg = new Configuration();
+    public static PageGenerator getInstance() {
+        if (pageGenerator == null) {
+            pageGenerator = new PageGenerator();
+        }
+        return pageGenerator;
     }
 
-    public static PageGenerator getInstance() {
-        return pageGenerator;
+    public PageGenerator() {
+        cfg = new Configuration();
     }
 
     public String getPage(String filename, Map<String, Object> data) {

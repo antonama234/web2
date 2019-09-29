@@ -6,12 +6,12 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class UserService {
-    private static UserService userService = new UserService();
-
-    private UserService() {
-    }
+    private static UserService userService;
 
     public static UserService getInstance() {
+        if (userService == null) {
+            userService = new UserService();
+        }
         return userService;
     }
 
@@ -23,9 +23,7 @@ public class UserService {
     private Map<Long, User> authMap = Collections.synchronizedMap(new HashMap<>());
 
     public List<User> getAllUsers() {
-        List<User> list = new ArrayList<>();
-        dataBase.values().addAll(list);
-        return list;
+        return new ArrayList<>(dataBase.values());
     }
 
     public User getUserById(Long id) {
@@ -46,19 +44,11 @@ public class UserService {
     }
 
     public boolean isExistsThisUser(User user) {
-        boolean exist = false;
-        for (User findUser : dataBase.values()) {
-            if (user.equals(findUser)) {
-                exist = true;
-            }
-        }
-        return exist;
+        return dataBase.values().contains(user);
     }
 
     public List<User> getAllAuth() {
-        List<User> list = new ArrayList<>();
-        authMap.values().addAll(list);
-        return list;
+        return new ArrayList<>(authMap.values());
     }
 
     public boolean authUser(User user) {

@@ -13,9 +13,9 @@ public class Main {
         RegistrationServlet registrationServlet = new RegistrationServlet();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(apiServlet), "/api");
-        context.addServlet(new ServletHolder(loginServlet), "/api/login");
-        context.addServlet(new ServletHolder(registrationServlet), "/api/register");
+        context.addServlet(new ServletHolder(apiServlet), "/api/*");
+        context.addServlet(new ServletHolder(loginServlet), "/login");
+        context.addServlet(new ServletHolder(registrationServlet), "/register");
 
         Server server = new Server(8080);
         server.setHandler(context);
