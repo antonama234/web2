@@ -16,8 +16,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, Object> map = new HashMap<>();
-        resp.getWriter().println(PageGenerator.getInstance().getPage("authPage.html ", map));
+        resp.getWriter().println(PageGenerator.getInstance().getPage("authPage.html ", new HashMap<>()));
         resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
     }

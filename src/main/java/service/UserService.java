@@ -32,7 +32,8 @@ public class UserService {
 
     public boolean addUser(User user) {
         boolean success = false;
-        if (!dataBase.containsKey(user.getId())) {
+        if (!isExistsThisUser(user)) {
+            user.setId(maxId.getAndAdd(1));
             dataBase.put(user.getId(), user);
             success = true;
         }
