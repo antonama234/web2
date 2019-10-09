@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public boolean isExistsThisUser(User user) {
-        return dataBase.values().contains(user);
+        return dataBase.containsValue(user);
     }
 
     public List<User> getAllAuth() {
@@ -54,9 +54,11 @@ public class UserService {
 
     public boolean authUser(User user) {
         boolean auth = false;
-        if (dataBase.containsKey(user.getId()) && !authMap.containsKey(user.getId())) {
-            authMap.put(user.getId(), user);
-            auth = true;
+        for (User u : dataBase.values()) {
+            if (user.getEmail().equals(u.getEmail()) & user.getPassword().equals(u.getPassword())) {
+                authMap.put(user.getId(), user);
+                auth = true;
+            }
         }
         return auth;
     }

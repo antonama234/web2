@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class RegistrationServlet extends HttpServlet {
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,9 +23,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User(req.getParameter("email"), req.getParameter("password"));
-        UserService userService = UserService.getInstance();
-        userService.addUser(user);
+        userService.addUser(new User(req.getParameter("email"), req.getParameter("password")));
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.setContentType("text/html;charset=utf-8");
     }
